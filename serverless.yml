@@ -27,11 +27,11 @@ provider:
 layers:
   node:
     path: layer/js
-    name: ${opt:stage, self:provider.stage, 'dev'}-layerName # optional, Deployed Lambda layer name
+    name: ${opt:stage, self:provider.stage, 'dev'}-node # optional, Deployed Lambda layer name
     description: Description of what the lambda layer does # optional, Description to publish to AWS
   openssl:
     path: layer/modules
-    name: ${opt:stage, self:provider.stage, 'dev'}-openssl # optional, Deployed Lambda layer name
+    name: ${opt:stage, self:provider.stage, 'dev'}-bin # optional, Deployed Lambda layer name
     description: oppenssl modlues from Amazon Linux2
 
 package:
