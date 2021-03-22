@@ -92,5 +92,6 @@ npm i --production
 
 ### deploy to lambda (Current is root folder)
 ```
+npx nest build
 npx sls deploy --stage {stage_name} --aws-profile {profile_name}
 ```
