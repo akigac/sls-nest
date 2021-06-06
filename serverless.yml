@@ -8,6 +8,7 @@ provider:
   lambdaHashingVersion: 20201221
   stage: ${opt.stage, 'dev'}
   region: ap-northeast-1
+#  useDotenv: true
 
   apiGateway:
     shouldStartNameWithService: true
@@ -21,6 +22,11 @@ provider:
             - "s3:*"
           Resource: 
             - "*"
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:*"
+          Resource:
+            - !Join [ ":", [ "arn:aws:dynamodb", Ref: AWS::Region, Ref: AWS::AccountId, "table/User" ] ]
   environment:
     stage: ${self:provider.stage}
 
@@ -35,6 +41,7 @@ layers:
     description: oppenssl modlues from Amazon Linux2
 
 package:
+#  patterns:
   include:
     - dist/**
   exclude:
