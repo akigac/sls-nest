@@ -8,7 +8,7 @@ export class DynamoService<T> {
   private entity;
 
   constructor() {
-    const region = process.env.AWS_REGION ?? 'us-west-2';
+    const region = process.env.AWS_REGION ?? 'ap-northeast-1';
     this.mapper = new DataMapper({
       client: new DynamoDB({ region: region }), // the SDK client used to execute operations
       // tableNamePrefix: 'dev_', // optionally, you can provide a table prefix to keep your dev and prod tables separate
