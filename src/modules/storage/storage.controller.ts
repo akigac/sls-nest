@@ -32,6 +32,10 @@ export class StorageController {
   async downloadUser(@Param() params) {
     return JSON.stringify(await this.service.download(params.id));
   }
+  @Get('downloadUser/:id/url')
+  async downloadUserUrl(@Param() params) {
+    return JSON.stringify(await this.service.downloadUrl(params.id));
+  }
 
   @Post('upload/:id')
   @UseInterceptors(FileInterceptor('file'))

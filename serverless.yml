@@ -30,6 +30,9 @@ provider:
   environment:
     stage: ${self:provider.stage}
     STORAGE_BUCKET: ${env:STORAGE_BUCKET}
+    KEY_PAIR_ID: ${ssm:/${self:service}/KEY_PAIR_ID}
+    PRIVATE_KEY: ${ssm:/${self:service}/PRIVATE_KEY}
+    CLOUD_FRONT_URL: ${ssm:/${self:service}/CLOUD_FRONT_URL}
 
 layers:
   node:

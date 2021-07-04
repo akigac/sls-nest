@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { S3Service } from '../../services/s3.service';
+import { CFService } from '../../services/cf.service';
 
 @Injectable()
 export class StorageService {
@@ -22,6 +23,11 @@ export class StorageService {
     } else {
       return { message: 'down load error.' };
     }
+    // console.log(result);
+  }
+  async downloadUrl(id) {
+    const cfService = new CFService();
+    return cfService.signedUrl(`${id}.txt`);
     // console.log(result);
   }
 }

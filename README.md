@@ -94,4 +94,9 @@ npm i --production
 ```
 npx nest build
 npx sls deploy --stage {stage_name} --aws-profile {profile_name}
+npx sls deploy --stage dev --aws-profile ota
 ```
+
+### Need CloudFront setting
+Public key needs upload to CloudFront.
+CloudFront's set public key pair and private key need register to SSM's parameter store.
