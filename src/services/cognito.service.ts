@@ -41,7 +41,7 @@ export class CognitoService {
    * ログイン処理
    * @param user
    */
-  async signin(user: { email: string; password: string }): Promise<any> {
+  async signIn(user: { email: string; password: string }): Promise<any> {
     const data = {
       AuthFlow: 'ADMIN_USER_PASSWORD_AUTH',
       UserPoolId: process.env.USER_POOL_ID,

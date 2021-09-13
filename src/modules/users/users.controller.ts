@@ -62,7 +62,7 @@ export class UsersController {
       console.log('start me.')
 
       const jwtService = new JwtService()
-      const decode = jwtService.decodeToken(accessToken)
+      const decode = await jwtService.decodeToken(accessToken)
 
       const user = await this.service.getUser(decode.sub)
       if (!user) {
