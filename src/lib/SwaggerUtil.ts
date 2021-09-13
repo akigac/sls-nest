@@ -1,4 +1,4 @@
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 
 export class SwaggerUtil {
   async setup(app) {
@@ -7,8 +7,8 @@ export class SwaggerUtil {
       .setDescription('The API description')
       .setVersion('1.0')
       .addTag('api')
-      .build();
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
+      .build()
+    const document = SwaggerModule.createDocument(app, config)
+    SwaggerModule.setup('api', app, document)
   }
 }

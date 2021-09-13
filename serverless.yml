@@ -3,12 +3,17 @@ service: sls-nest
 frameworkVersion: '2'
 
 provider:
+  tracing:
+#    apiGateway: true
+#    lambda: true
+    apiGateway: false
+    lambda: false
   name: aws
   runtime: nodejs14.x
   lambdaHashingVersion: 20201221
   stage: ${opt.stage, 'dev'}
   region: ap-northeast-1
-#  useDotenv: true
+  # useDotenv: true
 
   apiGateway:
     shouldStartNameWithService: true
@@ -27,12 +32,23 @@ provider:
             - "dynamodb:*"
           Resource:
             - !Join [ ":", [ "arn:aws:dynamodb", Ref: AWS::Region, Ref: AWS::AccountId, "table/User" ] ]
+        - Effect: "Allow"
+          Action:
+            - "cognito-idp:AdminInitiateAuth"
+            - "cognito-idp:AdminRespondToAuthChallenge"
+            - "cognito-idp:AdminCreateUser"
+            - "cognito-idp:adminGetUser"
+          Resource:
+            - !Join [ ":", [ "arn:aws:cognito-idp", Ref: AWS::Region, Ref: AWS::AccountId, "userpool/${env:USER_POOL_ID}" ] ]
   environment:
     stage: ${self:provider.stage}
     STORAGE_BUCKET: ${env:STORAGE_BUCKET}
     KEY_PAIR_ID: ${ssm:/${self:service}/KEY_PAIR_ID}
     PRIVATE_KEY: ${ssm:/${self:service}/PRIVATE_KEY}
     CLOUD_FRONT_URL: ${ssm:/${self:service}/CLOUD_FRONT_URL}
+    SERVICE: ${self:service}
+    USER_POOL_ID: ${env:USER_POOL_ID}
+    COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
 
 layers:
   node:
@@ -61,6 +77,7 @@ functions:
     layers:
       - { Ref: NodeLambdaLayer }
       - { Ref: OpensslLambdaLayer }
+    # image: 450871724179.dkr.ecr.ap-northeast-1.amazonaws.com/sls-nest_api@sha256:81a9109627082faa6915510710b67ee944559bb94121c4d01d7bc4bc72f0855e
     events:
       - http:
           cors: true
@@ -68,11 +85,21 @@ functions:
           method: any
       - http:
           cors: true
+          path: "/auth/{proxy+}"
+          method: any
+      - http:
+          cors: true
           path: "{proxy+}"
           method: any
-  batch:
-    handler: dist/standalone/handler.hello
-    timeout: 10
+          authorizer: 
+            name: sls-nest-authorizer
+            type: COGNITO_USER_POOLS
+            # authorizerId: "tieb8g"
+            arn:
+              !Join [ ":", [ "arn:aws:cognito-idp", Ref: AWS::Region, Ref: AWS::AccountId, "userpool/${env:USER_POOL_ID}" ] ]
+  # batch:
+  #   handler: dist/standalone/handler.hello
+  #   timeout: 10
       
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}

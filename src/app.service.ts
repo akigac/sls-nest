@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
+import { BaseService } from './lib/base.service'
 
 @Injectable()
-export class AppService {
+export class AppService extends BaseService {
   getHello(): string {
-    return 'Hello World!';
+    return 'Hello World!'
   }
 }

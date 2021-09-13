@@ -92,10 +92,14 @@ npm i --production
 
 ### deploy to lambda (Current is root folder)
 ```
+npm run format
 npx nest build
 npx sls deploy --stage {stage_name} --aws-profile {profile_name}
 npx sls deploy --stage dev --aws-profile ota
 ```
+
+### remove
+npx sls remove --stage dev --aws-profile ota
 
 ### Need CloudFront setting
 Public key needs upload to CloudFront.
