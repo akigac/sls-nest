@@ -12,7 +12,7 @@ import { UsersService } from '../users/users.service'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { AllExceptionFilter } from '../../filter/all.exception.filter'
 import { ApiTags } from '@nestjs/swagger'
-import { XrayInterceptor } from '../../interceptor/xrayIntorseptor'
+import { XrayInterceptor } from '../../interceptor/xrayInterceptor'
 import * as xRay from 'aws-xray-sdk'
 import * as dayjs from 'dayjs'
 

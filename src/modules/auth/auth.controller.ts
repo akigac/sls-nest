@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { ApiTags } from '@nestjs/swagger'
-import { XrayInterceptor } from '../../interceptor/xrayIntorseptor'
+import { XrayInterceptor } from '../../interceptor/xrayInterceptor'
 
 @ApiTags('auth')
 @Controller('auth')

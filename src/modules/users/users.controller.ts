@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common'
 import { UsersService } from './users.service'
 import { ApiTags } from '@nestjs/swagger'
-import { XrayInterceptor } from '../../interceptor/xrayIntorseptor'
+import { XrayInterceptor } from '../../interceptor/xrayInterceptor'
 
 import { JwtService } from '../../services/jwt.service'
 

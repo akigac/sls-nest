@@ -2,7 +2,7 @@ import { Controller, Get, Query, UseInterceptors } from '@nestjs/common'
 import { AppService } from './app.service'
 import * as crypto from 'crypto'
 import { execSync } from 'child_process'
-import { XrayInterceptor } from './interceptor/xrayIntorseptor'
+import { XrayInterceptor } from './interceptor/xrayInterceptor'
 
 @Controller()
 @UseInterceptors(XrayInterceptor)
